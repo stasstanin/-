@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портфолио | История</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Caveat:wght@400;700&family=Press+Start+2P&display=swap');
+
+        :root {
+            --primary-color: #6c5ce7;
+            --accent-color: #00cec9;
+            --bg-dark: #1a1a2e;
+            --text-main: #ffffff;
+            --card-bg: rgba(255, 255, 255, 0.05);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        section {
+            padding: 80px 40px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .section-title {
+            font-family: 'Press Start 2P', cursive;
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+
+        .text-block {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            opacity: 0.9;
+            max-width: 800px;
+        }
+        
+        .text-block p { margin-bottom: 20px; }
+
+        .hero-section {
+            padding: 40px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #2d1b4e 100%);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 25px;
+            grid-template-areas: 
+                "left-top right-top"
+                "left-bottom right-bottom";
+            align-items: center;
+        }
+        
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 40px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--accent-color);
+            z-index: 10;
+        }
+
+        .img-1 { grid-area: left-top; }
+        .img-2 { grid-area: right-top; }
+        
+        .hero-text { 
+            grid-area: left-bottom; 
+            display: flex; 
+            flex-direction: row; 
+            align-items: center; 
+            justify-content: center;
+            gap: 30px; 
+        }
+
+        .hero-avatar {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--accent-color);
+            box-shadow: 0 0 25px var(--primary-color);
+            flex-shrink: 0;
+        }
+
+        .hero-text-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .img-3 { grid-area: right-bottom; }
+
+        .mood-img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+            transition: all 0.4s ease;
+            filter: grayscale(40%);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .mood-img:hover {
+            transform: scale(1.03);
+            filter: grayscale(0%);
+            box-shadow: 0 15px 40px rgba(108, 92, 231, 0.5);
+        }
+
+        .hero-title {
+            font-family: 'Caveat', cursive;
+            font-size: 2.8rem;
+            line-height: 1.1;
+            color: #fff;
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px var(--primary-color);
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            line-height: 1.7;
+        }
+        
+        .hero-subtitle span { color: var(--accent-color); font-weight: 600; }
+
+        .step-2-section {
+            background-color: #16162a;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .story-card {
+            background: var(--card-bg);
+            border: 1px solid var(--primary-color);
+            padding: 50px;
+            border-radius: 30px;
+            max-width: 800px;
+            position: relative;
+            box-shadow: 0 0 50px rgba(108, 92, 231, 0.2);
+        }
+        
+        .story-card::before {
+            content: 'Шаг 2';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-color);
+            padding: 10px 30px;
+            border-radius: 20px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.8rem;
+        }
+
+        .step-2-text {
+            font-size: 1.2rem;
+            line-height: 1.7;
+        }
+
+        .games-section {
+            background: linear-gradient(to bottom, #16162a, #0f0f1a);
+            padding: 80px 40px;
+            text-align: center;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .game-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(108, 92, 231, 0.4);
+            border-color: var(--primary-color);
+        }
+
+        .game-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .game-info {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .game-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #fff;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.9rem;
+        }
+
+        .game-desc {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .play-btn {
+            display: inline-block;
+            padding: 10px 25px;
+            background: var(--accent-color);
+            color: var(--bg-dark);
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-align: center;
+            transition: background 0.2s;
+        }
+        
+        .play-btn:hover { background: #fff; }
+
+        .step-section {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+        }
+        
+        .step-number {
+            position: absolute;
+            top: 80px;
+            right: 40px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 5rem;
+            opacity: 0.05;
+            color: #fff;
+        }
+
+        .step-bg-1 { background-color: #1a1a2e; }
+        .step-bg-2 { background-color: #16162a; }
+        .step-bg-3 { background-color: #0f0f1a; }
+
+        .footer {
+            padding: 60px 40px;
+            background: #050508;
+            text-align: center;
+            border-top: 1px solid var(--primary-color);
+        }
+        
+        .footer-text {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .action-btn {
+            display: inline-block;
+            padding: 18px 50px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 5px 20px rgba(108, 92, 231, 0.4);
+            font-size: 1.1rem;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(108, 92, 231, 0.6);
+        }
+
+        @media (max-width: 900px) {
+            .games-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .hero-section { display: flex; flex-direction: column; padding: 20px; gap: 15px; }
+            .img-1 { order: 1; height: 200px; }
+            .img-2 { order: 2; height: 200px; }
+            .img-3 { order: 4; height: 200px; }
+            .hero-text { order: 3; text-align: center; padding: 20px 0; flex-direction: column; }
+            .hero-avatar { width: 100px; height: 100px; }
+            .hero-title { font-size: 2rem; }
+            .games-grid { grid-template-columns: 1fr; }
+            .story-card { padding: 30px 20px; }
+            section { padding: 40px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ШАГ 1: ГЛАВНАЯ -->
+    <section class="hero-section">
+        <div class="logo">[ТВОЙ НИК]</div>
+        
+        <!-- Первое фото (ОБНОВЛЕНО) -->
+        <div class="img-1">
+            <img src="https://i.supaimg.com/339fd769-e87a-4088-8f04-43212883b7a8/456765d5-2b34-4397-bfc4-d8fb77915ef5.webp" alt="Атмосфера 1" class="mood-img">
+        </div>
+
+        <!-- Второе фото -->
+        <div class="img-2">
+            <img src="file:///storage/9144-716C/Download/Vary_Image_-_________________________________________________________________________________.png" alt="Атмосфера 2" class="mood-img">
+        </div>
+
+        <!-- Текст + Аватарка -->
+        <div class="hero-text">
+            <img src="file:///storage/9144-716C/Download/p.webp" alt="Мой Аватар" class="hero-avatar">
+            <div class="hero-text-content">
+                <h1 class="hero-title">Создатель интересных и не сбалансированных, но весёлых игр, в которые интересно играть с друзьями или одним ✨</h1>
+                <p class="hero-subtitle">
+                    Чувствуй себя как дома: можешь <span>протестировать мои игры</span> ниже или просто узнать, кто стоит за этим экраном. 
+                </p>
+            </div>
+        </div>
+
+        <!-- Третье фото -->
+        <div class="img-3">
+            <img src="file:///storage/9144-716C/Download/Vary_Image_-_______________________________________________________________________________.png" alt="Атмосфера 3" class="mood-img">
+        </div>
+    </section>
+
+    <!-- ШАГ 2: ПРОЕКТЫ -->
+    <section class="step-2-section">
+        <div class="story-card">
+            <div class="step-2-text">
+                <p>
+                    Здесь собраны мои проекты — как законченные, так и те, что всё ещё в разработке. 
+                    В каждую можно весело провести время и, если повезёт, попасть в таблицу лидеров. 
+                </p>
+                <p>
+                    Каждый проект много раз дорабатывался и изменялся. К тому же, в этих играх скрыты идеи 
+                    множества людей — моих друзей и тестеров, без которых проекты не были бы такими, 
+                    какими они есть сейчас ✌️
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- БЛОК ИГР -->
+    <section class="games-section" id="games">
+        <h2 class="section-title">// ИГРЫ //</h2>
+        <div class="games-grid">
+            <div class="game-card">
+                <img src="https://picsum.photos/400/300?random=101" alt="Игра 1" class="game-img">
+                <div class="game-info">
+                    <h3 class="game-title">Игра №1</h3>
+                    <p class="game-desc">Описание первой игры. Здесь можно написать жанр или суть.</p>
+                    <a href="#" class="play-btn">▶ ИГРАТЬ</a>
+                </div>
+            </div>
+            <div class="game-card">
+                <img src="https://picsum.photos/400/300?random=102" alt="Игра 2" class="game-img">
+                <div class="game-info">
+                    <h3 class="game-title">Игра №2</h3>
+                    <p class="game-desc">Описание второй игры. Мультиплеер для друзей.</p>
+                    <a href="#" class="play-btn">▶ ИГРАТЬ</a>
+                </div>
+            </div>
+            <div class="game-card">
+                <img src="https://picsum.photos/400/300?random=103" alt="Игра 3" class="game-img">
+                <div class="game-info">
+                    <h3 class="game-title">Игра №3</h3>
+                    <p class="game-desc">Описание третьей игры. Что-то связанное с нейросетями.</p>
+                    <a href="#" class="play-btn">▶ ИГРАТЬ</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ШАГ 3 -->
+    <section class="step-section step-bg-1">
+        <div class="container">
+            <div class="step-number">03</div>
+            <h2 class="section-title">// Развитие //</h2>
+            <div class="text-block">
+                <p>С помощью идей я раскрываю некоторые стороны проекта и дорабатываю их, делая игру более разнообразной. Мы превращаем простую задумку во что-то по-настоящему увлекательное — с кучей изменений, фишек и разными игровыми режимами.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ШАГ 4 -->
+    <section class="step-section step-bg-2">
+        <div class="container">
+            <div class="step-number">04</div>
+            <h2 class="section-title">// Новые горизонты //</h2>
+            <div class="text-block">
+                <p>Сейчас я изучаю тему создания 3D проектов, в которой у меня есть небольшие знания, но мне нужно знать больше для того, чтобы делать хорошие 3D проекты и изменять их баланс в какую-то сторону, делая игру с большим количеством интересных и неожиданных ситуаций.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ШАГ 5 -->
+    <section class="step-section step-bg-3">
+        <div class="container">
+            <div class="step-number">05</div>
+            <h2 class="section-title">// Сложность = Свобода //</h2>
+            <div class="text-block">
+                <p>Для создания качественных проектов в 3D требуется много знаний, и далеко не все из них у меня пока есть. Но чем выше сложность инструмента, тем больше вариантов для изменения или модификации можно придумать. На простых языках отсутствует множество функций, которые есть в сложных: то, что легко написать на мощном языке программирования, практически невозможно сделать на простом.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ПОДВАЛ -->
+    <footer class="footer">
+        <h2 class="section-title" style="margin-bottom: 20px; font-size: 1rem; color: #fff;">Понравилось или есть идеи? Пиши!</h2>
+        <p class="footer-text">
+            Если что-то не устраивает, нашел баг или просто хочешь сказать «привет» — я всегда на связи.
+        </p>
+        <a href="https://t.me/твойник" class="action-btn">Связаться со мной</a>
+        <p style="margin-top: 30px; opacity: 0.5; font-size: 0.8rem;">© 2023 [Твое Имя]. Made with Code & Magic.</p>
+    </footer>
+
+</body>
+</html>
