@@ -55,18 +55,13 @@
             opacity: 0.9;
             max-width: 800px;
         }
-        
         .text-block p { margin-bottom: 20px; }
 
-        /* --- ШАГ 1: ВАРИАНТ 4 (БИНАРНЫЙ КОД / 2 СЛЕВА, 2 СПРАВА) --- */
+        /* --- ШАГ 1: ИСПРАВЛЕННЫЙ БИНАРНЫЙ КОД --- */
         .hero-section {
-            padding: 100px 40px 40px 40px; /* Место сверху для логотипа */
+            padding: 120px 40px 40px 40px;
             background: linear-gradient(135deg, #1a1a2e 0%, #2d1b4e 100%);
-            display: grid;
-            /* Делим экран строго пополам */
-            grid-template-columns: 1fr 1fr; 
-            gap: 20px; /* Расстояние между левой и правой частью */
-            align-items: center;
+            position: relative; /* Нужен для центрирования текста */
         }
         
         .logo {
@@ -79,31 +74,35 @@
             z-index: 10;
         }
 
-        /* Левая и правая колонки */
-        .gallery-left, .gallery-right {
-            display: flex;
-            flex-direction: column;
-            gap: 20px; /* Расстояние между картинками внутри колонки */
+        /* Сетка для ПК: 2 ровные колонки */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
         }
 
-        /* Настройки картинок (чтобы не обрезались и были одного размера) */
+        /* Настройки картинок: НЕ обрезаем, сохраняем форму */
         .mood-img {
             width: 100%;
-            height: 300px; /* Фиксированная высота для всех */
-            object-fit: cover; /* Заполняет пространство, немного обрезая лишнее по краям */
+            height: 350px; /* Фиксированная высота для аккуратности */
+            object-fit: contain; /* ВАЖНО: не обрезает фото, показывает целиком */
             border-radius: 20px;
+            background: rgba(255,255,255,0.03); /* Легкая подложка, чтобы было видно границы */
+            border: 1px solid rgba(255,255,255,0.05);
             transition: all 0.4s ease;
-            filter: grayscale(40%);
+            filter: grayscale(40%) brightness(0.9);
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
         .mood-img:hover {
             transform: scale(1.02);
-            filter: grayscale(0%);
+            filter: grayscale(0%) brightness(1);
             box-shadow: 0 15px 40px rgba(108, 92, 231, 0.5);
         }
 
-        /* Текстовый блок по центру экрана (поверх сетки) */
+        /* Текстовый блок поверх сетки по центру */
         .hero-overlay {
             position: absolute;
             top: 50%;
@@ -111,13 +110,15 @@
             transform: translate(-50%, -50%);
             text-align: center;
             width: 90%;
-            background: rgba(26, 26, 46, 0.85); /* Полупрозрачный темный фон, чтобы текст читался */
-            backdrop-filter: blur(10px); /* Эффект размытия заднего фона */
+            max-width: 700px;
+            background: rgba(26, 26, 46, 0.9);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             padding: 40px;
             border-radius: 30px;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            z-index: 5; /* Чтобы был поверх картинок */
-            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            z-index: 5;
+            box-shadow: 0 0 60px rgba(0,0,0,0.6);
         }
 
         .hero-avatar {
@@ -144,17 +145,14 @@
             opacity: 0.9;
             line-height: 1.7;
         }
-        
         .hero-subtitle span { color: var(--accent-color); font-weight: 600; }
 
-
-        /* --- ШАГ 2: ПРОЕКТЫ --- */
+        /* --- ШАГ 2 --- */
         .step-2-section {
             background-color: #16162a;
             align-items: center;
             text-align: center;
         }
-        
         .story-card {
             background: var(--card-bg);
             border: 1px solid var(--primary-color);
@@ -164,7 +162,6 @@
             position: relative;
             box-shadow: 0 0 50px rgba(108, 92, 231, 0.2);
         }
-        
         .story-card::before {
             content: 'Шаг 2';
             position: absolute;
@@ -177,11 +174,7 @@
             font-family: 'Press Start 2P', cursive;
             font-size: 0.8rem;
         }
-
-        .step-2-text {
-            font-size: 1.2rem;
-            line-height: 1.7;
-        }
+        .step-2-text { font-size: 1.2rem; line-height: 1.7; }
 
         /* --- БЛОК ИГР --- */
         .games-section {
@@ -189,7 +182,6 @@
             padding: 80px 40px;
             text-align: center;
         }
-
         .games-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -197,7 +189,6 @@
             max-width: 1000px;
             margin: 0 auto;
         }
-
         .game-card {
             background: var(--card-bg);
             border-radius: 15px;
@@ -208,42 +199,20 @@
             display: flex;
             flex-direction: column;
         }
-
         .game-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 10px 30px rgba(108, 92, 231, 0.4);
             border-color: var(--primary-color);
         }
-
         .game-img {
             width: 100%;
             height: 180px;
             object-fit: cover;
             border-bottom: 2px solid var(--primary-color);
         }
-
-        .game-info {
-            padding: 20px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .game-title {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            color: #fff;
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.9rem;
-        }
-
-        .game-desc {
-            font-size: 0.9rem;
-            opacity: 0.7;
-            margin-bottom: 20px;
-            flex-grow: 1;
-        }
-
+        .game-info { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+        .game-title { font-size: 1.2rem; margin-bottom: 10px; color: #fff; font-family: 'Press Start 2P', cursive; font-size: 0.9rem; }
+        .game-desc { font-size: 0.9rem; opacity: 0.7; margin-bottom: 20px; flex-grow: 1; }
         .play-btn {
             display: inline-block;
             padding: 10px 25px;
@@ -256,44 +225,18 @@
             text-align: center;
             transition: background 0.2s;
         }
-        
         .play-btn:hover { background: #fff; }
 
         /* --- ШАГИ 3, 4, 5 --- */
-        .step-section {
-            border-top: 1px solid rgba(255,255,255,0.1);
-            position: relative;
-        }
-        
-        .step-number {
-            position: absolute;
-            top: 80px;
-            right: 40px;
-            font-family: 'Press Start 2P', cursive;
-            font-size: 5rem;
-            opacity: 0.05;
-            color: #fff;
-        }
-
+        .step-section { border-top: 1px solid rgba(255,255,255,0.1); position: relative; }
+        .step-number { position: absolute; top: 80px; right: 40px; font-family: 'Press Start 2P', cursive; font-size: 5rem; opacity: 0.05; color: #fff; }
         .step-bg-1 { background-color: #1a1a2e; }
         .step-bg-2 { background-color: #16162a; }
         .step-bg-3 { background-color: #0f0f1a; }
 
         /* --- ПОДВАЛ --- */
-        .footer {
-            padding: 60px 40px;
-            background: #050508;
-            text-align: center;
-            border-top: 1px solid var(--primary-color);
-        }
-        
-        .footer-text {
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-            opacity: 0.9;
-            line-height: 1.6;
-        }
-
+        .footer { padding: 60px 40px; background: #050508; text-align: center; border-top: 1px solid var(--primary-color); }
+        .footer-text { font-size: 1.1rem; margin-bottom: 20px; opacity: 0.9; line-height: 1.6; }
         .action-btn {
             display: inline-block;
             padding: 18px 50px;
@@ -308,42 +251,30 @@
             box-shadow: 0 5px 20px rgba(108, 92, 231, 0.4);
             font-size: 1.1rem;
         }
+        .action-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(108, 92, 231, 0.6); }
 
-        .action-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(108, 92, 231, 0.6);
+        /* --- АДАПТИВНОСТЬ --- */
+        @media (max-width: 900px) {
+            .games-grid { grid-template-columns: repeat(2, 1fr); }
         }
-
-        /* --- АДАПТИВНОСТЬ ДЛЯ ТЕЛЕФОНА --- */
         @media (max-width: 768px) {
-            /* На телефоне 2 колонки превращаются в 1 */
-            .hero-section { 
-                grid-template-columns: 1fr; 
-                padding: 80px 20px 20px 20px; 
-            }
-            .gallery-left, .gallery-right {
-                flex-direction: row; /* Выстраиваем картинки в ряд на телефоне */
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            .mood-img {
-                width: 48%; /* По две картинки в ряд на телефоне */
-                height: 200px;
-            }
+            .hero-section { padding: 80px 20px 20px 20px; }
             
-            /* Текст по центру без сильного наезда */
+            /* На телефоне: 1 колонка, сетка ломается, текст встает первым */
+            .gallery-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+            .mood-img { height: 200px; }
+            
             .hero-overlay {
                 position: relative;
                 top: auto;
                 left: auto;
                 transform: none;
                 width: 100%;
-                margin-top: 20px;
-                order: -1; /* Ставим текст первым на телефоне */
+                margin: 0 auto 20px auto;
+                order: -1; /* Текст в самый верх на телефоне */
             }
-            .hero-title { font-size: 2rem; }
-            .hero-avatar { width: 100px; height: 100px; }
-
+            .hero-title { font-size: 1.8rem; }
+            .hero-avatar { width: 90px; height: 90px; }
             .games-grid { grid-template-columns: 1fr; }
             .story-card { padding: 30px 20px; }
             section { padding: 40px 20px; }
@@ -352,23 +283,20 @@
 </head>
 <body>
 
-    <!-- ШАГ 1: ГЛАВНАЯ (БИНАРНЫЙ КОД) -->
+    <!-- ШАГ 1: ГЛАВНАЯ -->
     <section class="hero-section">
         <div class="logo">[ТВОЙ НИК]</div>
         
-        <!-- ЛЕВАЯ КОЛОНКА -->
-        <div class="gallery-left">
-            <img src="3.png" alt="Первая картинка" class="mood-img">
-            <img src="avatar.png" alt="Аватар" class="mood-img">
+        <!-- 4 Картинки в сетке 2х2 (Аватарка больше не тут, только в центре) -->
+        <div class="gallery-grid">
+            <img src="3.png" alt="Картинка 1" class="mood-img">
+            <img src="2.png" alt="Картинка 2" class="mood-img">
+            <img src="1.png" alt="Картинка 3" class="mood-img">
+            <img src="3.png" alt="Картинка 4 (дубль для симметрии)" class="mood-img"> 
+            <!-- Я продублировал 3.png, так как у нас было только 3 картинки + аватар. Если есть 4-я картинка, вставь её сюда -->
         </div>
 
-        <!-- ПРАВАЯ КОЛОНКА -->
-        <div class="gallery-right">
-            <img src="2.png" alt="Вторая картинка" class="mood-img">
-            <img src="1.png" alt="Третья картинка" class="mood-img">
-        </div>
-
-        <!-- ТЕКСТОВЫЙ БЛОК ПО ЦЕНТРУ -->
+        <!-- ТЕКСТ ПО ЦЕНТРУ -->
         <div class="hero-overlay">
             <img src="avatar.png" alt="Мой Аватар" class="hero-avatar">
             <h1 class="hero-title">Создатель интересных и не сбалансированных, но весёлых игр, в которые интересно играть с друзьями или одним ✨</h1>
@@ -382,15 +310,8 @@
     <section class="step-2-section">
         <div class="story-card">
             <div class="step-2-text">
-                <p>
-                    Здесь собраны мои проекты — как законченные, так и те, что всё ещё в разработке. 
-                    В каждую можно весело провести время и, если повезёт, попасть в таблицу лидеров. 
-                </p>
-                <p>
-                    Каждый проект много раз дорабатывался и изменялся. К тому же, в этих играх скрыты идеи 
-                    множества людей — моих друзей и тестеров, без которых проекты не были бы такими, 
-                    какими они есть сейчас ✌️
-                </p>
+                <p>Здесь собраны мои проекты — как законченные, так и те, что всё ещё в разработке. В каждую можно весело провести время и, если повезёт, попасть в таблицу лидеров.</p>
+                <p>Каждый проект много раз дорабатывался и изменялся. К тому же, в этих играх скрыты идеи множества людей — моих друзей и тестеров, без которых проекты не были бы такими, какими они есть сейчас ✌️</p>
             </div>
         </div>
     </section>
@@ -403,7 +324,7 @@
                 <img src="https://picsum.photos/400/300?random=101" alt="Игра 1" class="game-img">
                 <div class="game-info">
                     <h3 class="game-title">Игра №1</h3>
-                    <p class="game-desc">Описание первой игры. Здесь можно написать жанр или суть.</p>
+                    <p class="game-desc">Описание первой игры.</p>
                     <a href="#" class="play-btn">▶ ИГРАТЬ</a>
                 </div>
             </div>
@@ -411,7 +332,7 @@
                 <img src="https://picsum.photos/400/300?random=102" alt="Игра 2" class="game-img">
                 <div class="game-info">
                     <h3 class="game-title">Игра №2</h3>
-                    <p class="game-desc">Описание второй игры. Мультиплеер для друзей.</p>
+                    <p class="game-desc">Описание второй игры.</p>
                     <a href="#" class="play-btn">▶ ИГРАТЬ</a>
                 </div>
             </div>
@@ -419,52 +340,42 @@
                 <img src="https://picsum.photos/400/300?random=103" alt="Игра 3" class="game-img">
                 <div class="game-info">
                     <h3 class="game-title">Игра №3</h3>
-                    <p class="game-desc">Описание третьей игры. Что-то связанное с нейросетями.</p>
+                    <p class="game-desc">Описание третьей игры.</p>
                     <a href="#" class="play-btn">▶ ИГРАТЬ</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ШАГ 3 -->
+    <!-- ШАГИ 3, 4, 5 -->
     <section class="step-section step-bg-1">
         <div class="container">
             <div class="step-number">03</div>
             <h2 class="section-title">// Развитие //</h2>
-            <div class="text-block">
-                <p>С помощью идей я раскрываю некоторые стороны проекта и дорабатываю их, делая игру более разнообразной. Мы превращаем простую задумку во что-то по-настоящему увлекательное — с кучей изменений, фишек и разными игровыми режимами.</p>
-            </div>
+            <div class="text-block"><p>С помощью идей я раскрываю некоторые стороны проекта и дорабатываю их, делая игру более разнообразной. Мы превращаем простую задумку во что-то по-настоящему увлекательное — с кучей изменений, фишек и разными игровыми режимами.</p></div>
         </div>
     </section>
 
-    <!-- ШАГ 4 -->
     <section class="step-section step-bg-2">
         <div class="container">
             <div class="step-number">04</div>
             <h2 class="section-title">// Новые горизонты //</h2>
-            <div class="text-block">
-                <p>Сейчас я изучаю тему создания 3D проектов, в которой у меня есть небольшие знания, но мне нужно знать больше для того, чтобы делать хорошие 3D проекты и изменять их баланс в какую-то сторону, делая игру с большим количеством интересных и неожиданных ситуаций.</p>
-            </div>
+            <div class="text-block"><p>Сейчас я изучаю тему создания 3D проектов, в которой у меня есть небольшие знания, но мне нужно знать больше для того, чтобы делать хорошие 3D проекты и изменять их баланс в какую-то сторону, делая игру с большим количеством интересных и неожиданных ситуаций.</p></div>
         </div>
     </section>
 
-    <!-- ШАГ 5 -->
     <section class="step-section step-bg-3">
         <div class="container">
             <div class="step-number">05</div>
             <h2 class="section-title">// Сложность = Свобода //</h2>
-            <div class="text-block">
-                <p>Для создания качественных проектов в 3D требуется много знаний, и далеко не все из них у меня пока есть. Но чем выше сложность инструмента, тем больше вариантов для изменения или модификации можно придумать. На простых языках отсутствует множество функций, которые есть в сложных: то, что легко написать на мощном языке программирования, практически невозможно сделать на простом.</p>
-            </div>
+            <div class="text-block"><p>Для создания качественных проектов в 3D требуется много знаний, и далеко не все из них у меня пока есть. Но чем выше сложность инструмента, тем больше вариантов для изменения или модификации можно придумать. На простых языках отсутствует множество функций, которые есть в сложных: то, что легко написать на мощном языке программирования, практически невозможно сделать на простом.</p></div>
         </div>
     </section>
 
     <!-- ПОДВАЛ -->
     <footer class="footer">
         <h2 class="section-title" style="margin-bottom: 20px; font-size: 1rem; color: #fff;">Понравилось или есть идеи? Пиши!</h2>
-        <p class="footer-text">
-            Если что-то не устраивает, нашел баг или просто хочешь сказать «привет» — я всегда на связи.
-        </p>
+        <p class="footer-text">Если что-то не устраивает, нашел баг или просто хочешь сказать «привет» — я всегда на связи.</p>
         <a href="https://t.me/твойник" class="action-btn">Связаться со мной</a>
         <p style="margin-top: 30px; opacity: 0.5; font-size: 0.8rem;">© 2023 [Твое Имя]. Made with Code & Magic.</p>
     </footer>
