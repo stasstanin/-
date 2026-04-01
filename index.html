@@ -57,11 +57,13 @@
         }
         .text-block p { margin-bottom: 20px; }
 
-        /* --- ШАГ 1: ИСПРАВЛЕННЫЙ БИНАРНЫЙ КОД --- */
+        /* --- ШАГ 1: СТРОГАЯ СЕТКА 2х2 --- */
         .hero-section {
-            padding: 120px 40px 40px 40px;
+            padding: 100px 40px 40px 40px;
             background: linear-gradient(135deg, #1a1a2e 0%, #2d1b4e 100%);
-            position: relative; /* Нужен для центрирования текста */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .logo {
@@ -74,157 +76,99 @@
             z-index: 10;
         }
 
-        /* Сетка для ПК: 2 ровные колонки */
-        .gallery-grid {
+        /* Сама сетка */
+        .hero-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        /* Настройки картинок: НЕ обрезаем, сохраняем форму */
-        .mood-img {
+            grid-template-columns: 1fr 1fr; /* Две колонки равной ширины */
+            grid-template-rows: 1fr 1fr;   /* Две строки равной высоты */
+            gap: 15px; /* Расстояние между ячейками */
             width: 100%;
-            height: 350px; /* Фиксированная высота для аккуратности */
-            object-fit: contain; /* ВАЖНО: не обрезает фото, показывает целиком */
+            max-width: 1100px;
+            height: 85vh; /* Сетка занимает почти весь экран */
+        }
+
+        /* Общие стили для ячеек с картинками */
+        .grid-img {
+            overflow: hidden;
             border-radius: 20px;
-            background: rgba(255,255,255,0.03); /* Легкая подложка, чтобы было видно границы */
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: all 0.4s ease;
-            filter: grayscale(40%) brightness(0.9);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            position: relative;
+            background: rgba(0,0,0,0.2); /* Фон-подложка на случай загрузки */
         }
 
-        .mood-img:hover {
-            transform: scale(1.02);
+        .grid-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Заполняет ячейку как пазл */
+            transition: all 0.5s ease;
+            filter: grayscale(30%) brightness(0.85);
+        }
+
+        .grid-img:hover img {
+            transform: scale(1.05);
             filter: grayscale(0%) brightness(1);
-            box-shadow: 0 15px 40px rgba(108, 92, 231, 0.5);
         }
 
-        /* Текстовый блок поверх сетки по центру */
-        .hero-overlay {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            width: 90%;
-            max-width: 700px;
-            background: rgba(26, 26, 46, 0.9);
+        /* Ячейка с текстом */
+        .grid-text {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            padding: 30px;
+            background: rgba(26, 26, 46, 0.6);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            padding: 40px;
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            z-index: 5;
-            box-shadow: 0 0 60px rgba(0,0,0,0.6);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            overflow: hidden;
         }
 
         .hero-avatar {
-            width: 120px;
-            height: 120px;
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
             object-fit: cover;
             border: 4px solid var(--accent-color);
             box-shadow: 0 0 25px var(--primary-color);
-            margin-bottom: 20px;
+            flex-shrink: 0; /* Чтобы аватарка не сжималась */
+        }
+
+        .hero-text-content {
+            display: flex;
+            flex-direction: column;
         }
 
         .hero-title {
             font-family: 'Caveat', cursive;
-            font-size: 2.5rem;
+            font-size: 2rem;
             line-height: 1.1;
             color: #fff;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             text-shadow: 0 0 15px var(--primary-color);
         }
 
         .hero-subtitle {
-            font-size: 1rem;
+            font-size: 0.95rem;
             opacity: 0.9;
-            line-height: 1.7;
+            line-height: 1.6;
         }
         .hero-subtitle span { color: var(--accent-color); font-weight: 600; }
 
         /* --- ШАГ 2 --- */
-        .step-2-section {
-            background-color: #16162a;
-            align-items: center;
-            text-align: center;
-        }
-        .story-card {
-            background: var(--card-bg);
-            border: 1px solid var(--primary-color);
-            padding: 50px;
-            border-radius: 30px;
-            max-width: 800px;
-            position: relative;
-            box-shadow: 0 0 50px rgba(108, 92, 231, 0.2);
-        }
-        .story-card::before {
-            content: 'Шаг 2';
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--primary-color);
-            padding: 10px 30px;
-            border-radius: 20px;
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.8rem;
-        }
+        .step-2-section { background-color: #16162a; align-items: center; text-align: center; }
+        .story-card { background: var(--card-bg); border: 1px solid var(--primary-color); padding: 50px; border-radius: 30px; max-width: 800px; position: relative; box-shadow: 0 0 50px rgba(108, 92, 231, 0.2); }
+        .story-card::before { content: 'Шаг 2'; position: absolute; top: -20px; left: 50%; transform: translateX(-50%); background: var(--primary-color); padding: 10px 30px; border-radius: 20px; font-family: 'Press Start 2P', cursive; font-size: 0.8rem; }
         .step-2-text { font-size: 1.2rem; line-height: 1.7; }
 
         /* --- БЛОК ИГР --- */
-        .games-section {
-            background: linear-gradient(to bottom, #16162a, #0f0f1a);
-            padding: 80px 40px;
-            text-align: center;
-        }
-        .games-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        .game-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-            text-align: left;
-            display: flex;
-            flex-direction: column;
-        }
-        .game-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(108, 92, 231, 0.4);
-            border-color: var(--primary-color);
-        }
-        .game-img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-bottom: 2px solid var(--primary-color);
-        }
+        .games-section { background: linear-gradient(to bottom, #16162a, #0f0f1a); padding: 80px 40px; text-align: center; }
+        .games-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 1000px; margin: 0 auto; }
+        .game-card { background: var(--card-bg); border-radius: 15px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: transform 0.3s, box-shadow 0.3s; text-align: left; display: flex; flex-direction: column; }
+        .game-card:hover { transform: translateY(-10px); box-shadow: 0 10px 30px rgba(108, 92, 231, 0.4); border-color: var(--primary-color); }
+        .game-img { width: 100%; height: 180px; object-fit: cover; border-bottom: 2px solid var(--primary-color); }
         .game-info { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
         .game-title { font-size: 1.2rem; margin-bottom: 10px; color: #fff; font-family: 'Press Start 2P', cursive; font-size: 0.9rem; }
         .game-desc { font-size: 0.9rem; opacity: 0.7; margin-bottom: 20px; flex-grow: 1; }
-        .play-btn {
-            display: inline-block;
-            padding: 10px 25px;
-            background: var(--accent-color);
-            color: var(--bg-dark);
-            text-decoration: none;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            text-align: center;
-            transition: background 0.2s;
-        }
+        .play-btn { display: inline-block; padding: 10px 25px; background: var(--accent-color); color: var(--bg-dark); text-decoration: none; border-radius: 20px; font-weight: 700; font-size: 0.9rem; text-align: center; transition: background 0.2s; }
         .play-btn:hover { background: #fff; }
 
         /* --- ШАГИ 3, 4, 5 --- */
@@ -237,44 +181,28 @@
         /* --- ПОДВАЛ --- */
         .footer { padding: 60px 40px; background: #050508; text-align: center; border-top: 1px solid var(--primary-color); }
         .footer-text { font-size: 1.1rem; margin-bottom: 20px; opacity: 0.9; line-height: 1.6; }
-        .action-btn {
-            display: inline-block;
-            padding: 18px 50px;
-            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-            color: white;
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 5px 20px rgba(108, 92, 231, 0.4);
-            font-size: 1.1rem;
-        }
+        .action-btn { display: inline-block; padding: 18px 50px; background: linear-gradient(90deg, var(--primary-color), var(--accent-color)); color: white; text-decoration: none; border-radius: 30px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 5px 20px rgba(108, 92, 231, 0.4); font-size: 1.1rem; }
         .action-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(108, 92, 231, 0.6); }
 
-        /* --- АДАПТИВНОСТЬ --- */
-        @media (max-width: 900px) {
-            .games-grid { grid-template-columns: repeat(2, 1fr); }
-        }
+        /* --- АДАПТИВНОСТЬ ДЛЯ ТЕЛЕФОНА --- */
         @media (max-width: 768px) {
             .hero-section { padding: 80px 20px 20px 20px; }
             
-            /* На телефоне: 1 колонка, сетка ломается, текст встает первым */
-            .gallery-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
-            .mood-img { height: 200px; }
-            
-            .hero-overlay {
-                position: relative;
-                top: auto;
-                left: auto;
-                transform: none;
-                width: 100%;
-                margin: 0 auto 20px auto;
-                order: -1; /* Текст в самый верх на телефоне */
+            /* На телефоне ломаем сетку в 1 колонку */
+            .hero-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+                height: auto;
             }
-            .hero-title { font-size: 1.8rem; }
+
+            /* Текст ставим самым первым */
+            .grid-text { order: -1; flex-direction: column; text-align: center; }
             .hero-avatar { width: 90px; height: 90px; }
+            .hero-title { font-size: 1.8rem; }
+
+            /* Картинки на телефоне делаютcя чуть меньше по высоте */
+            .grid-img { height: 250px; }
+
             .games-grid { grid-template-columns: 1fr; }
             .story-card { padding: 30px 20px; }
             section { padding: 40px 20px; }
@@ -283,26 +211,36 @@
 </head>
 <body>
 
-    <!-- ШАГ 1: ГЛАВНАЯ -->
+    <!-- ШАГ 1: ГЛАВНАЯ СЕТКА -->
     <section class="hero-section">
         <div class="logo">[ТВОЙ НИК]</div>
         
-        <!-- 4 Картинки в сетке 2х2 (Аватарка больше не тут, только в центре) -->
-        <div class="gallery-grid">
-            <img src="3.png" alt="Картинка 1" class="mood-img">
-            <img src="2.png" alt="Картинка 2" class="mood-img">
-            <img src="1.png" alt="Картинка 3" class="mood-img">
-            <img src="3.png" alt="Картинка 4 (дубль для симметрии)" class="mood-img"> 
-            <!-- Я продублировал 3.png, так как у нас было только 3 картинки + аватар. Если есть 4-я картинка, вставь её сюда -->
-        </div>
+        <div class="hero-grid">
+            <!-- 1. Слева в углу высокая (2.png) -->
+            <div class="grid-img">
+                <img src="2.png" alt="Первая высокая картинка">
+            </div>
 
-        <!-- ТЕКСТ ПО ЦЕНТРУ -->
-        <div class="hero-overlay">
-            <img src="avatar.png" alt="Мой Аватар" class="hero-avatar">
-            <h1 class="hero-title">Создатель интересных и не сбалансированных, но весёлых игр, в которые интересно играть с друзьями или одним ✨</h1>
-            <p class="hero-subtitle">
-                Чувствуй себя как дома: можешь <span>протестировать мои игры</span> ниже или просто узнать, кто стоит за этим экраном. 
-            </p>
+            <!-- 2. Справа от неё высокая (1.png) -->
+            <div class="grid-img">
+                <img src="1.png" alt="Вторая высокая картинка">
+            </div>
+
+            <!-- 3. По первой находится текст с аватаркой (Слева внизу) -->
+            <div class="grid-text">
+                <img src="avatar.png" alt="Аватар" class="hero-avatar">
+                <div class="hero-text-content">
+                    <h1 class="hero-title">Создатель интересных и не сбалансированных, но весёлых игр, в которые интересно играть с друзьями или одним ✨</h1>
+                    <p class="hero-subtitle">
+                        Чувствуй себя как дома: можешь <span>протестировать мои игры</span> ниже или просто узнать, кто стоит за этим экраном. 
+                    </p>
+                </div>
+            </div>
+
+            <!-- 4. Справа внизу широкая (3.png) -->
+            <div class="grid-img">
+                <img src="3.png" alt="Широкая картинка снизу">
+            </div>
         </div>
     </section>
 
