@@ -58,23 +58,20 @@
         
         .text-block p { margin-bottom: 20px; }
 
+        /* --- ШАГ 1: ВАРИАНТ 4 (БИНАРНЫЙ КОД / 2 СЛЕВА, 2 СПРАВА) --- */
         .hero-section {
-            padding: 40px;
+            padding: 100px 40px 40px 40px; /* Место сверху для логотипа */
             background: linear-gradient(135deg, #1a1a2e 0%, #2d1b4e 100%);
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: 1fr 1fr;
-            gap: 25px;
-            grid-template-areas: 
-                "left-top right-top"
-                "left-bottom right-bottom";
+            /* Делим экран строго пополам */
+            grid-template-columns: 1fr 1fr; 
+            gap: 20px; /* Расстояние между левой и правой частью */
             align-items: center;
         }
         
-        /* ЛОГОТИП: Увеличенный отступ сверху в 4 раза (был 20px, стало 80px) */
         .logo {
             position: absolute;
-            top: 80px;
+            top: 40px;
             left: 40px;
             font-weight: 700;
             font-size: 1rem;
@@ -82,40 +79,18 @@
             z-index: 10;
         }
 
-        .img-1 { grid-area: left-top; }
-        .img-2 { grid-area: right-top; }
-        
-        .hero-text { 
-            grid-area: left-bottom; 
-            display: flex; 
-            flex-direction: row; 
-            align-items: center; 
-            justify-content: center;
-            gap: 30px; 
-        }
-
-        .hero-avatar {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid var(--accent-color);
-            box-shadow: 0 0 25px var(--primary-color);
-            flex-shrink: 0;
-        }
-
-        .hero-text-content {
+        /* Левая и правая колонки */
+        .gallery-left, .gallery-right {
             display: flex;
             flex-direction: column;
+            gap: 20px; /* Расстояние между картинками внутри колонки */
         }
 
-        .img-3 { grid-area: right-bottom; }
-
-        /* --- ОБЩИЕ СТИЛИ КАРТИНОК --- */
+        /* Настройки картинок (чтобы не обрезались и были одного размера) */
         .mood-img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            height: 300px; /* Фиксированная высота для всех */
+            object-fit: cover; /* Заполняет пространство, немного обрезая лишнее по краям */
             border-radius: 20px;
             transition: all 0.4s ease;
             filter: grayscale(40%);
@@ -123,33 +98,41 @@
         }
 
         .mood-img:hover {
-            transform: scale(1.03);
+            transform: scale(1.02);
             filter: grayscale(0%);
             box-shadow: 0 15px 40px rgba(108, 92, 231, 0.5);
         }
 
-        /* --- МАСШТАБИРОВАНИЕ ДЛЯ КАРТИНОК 1 И 2 --- */
-        /* Ограничиваем высоту, чтобы они стали размером с 3-ю картинку и не исказились */
-        .img-1 .mood-img, .img-2 .mood-img {
-            width: auto;     /* Ширина подстраивается автоматически */
-            max-width: 100%; /* Но не вылезает за пределы своей клетки */
-            max-height: 320px; /* Фиксируем примерную высоту (сохраняет пропорции) */
-            height: 100%;
-            object-fit: contain; /* ВАЖНО: не обрезает фото, а вписывает целиком */
+        /* Текстовый блок по центру экрана (поверх сетки) */
+        .hero-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 90%;
+            background: rgba(26, 26, 46, 0.85); /* Полупрозрачный темный фон, чтобы текст читался */
+            backdrop-filter: blur(10px); /* Эффект размытия заднего фона */
+            padding: 40px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 5; /* Чтобы был поверх картинок */
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
         }
 
-        /* Для 3-й картинки оставляем стандартное заполнение, так как она изначально меньше */
-        .img-3 .mood-img {
-            width: auto;
-            max-height: 320px;
-            height: 100%;
-            object-fit: contain;
+        .hero-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--accent-color);
+            box-shadow: 0 0 25px var(--primary-color);
+            margin-bottom: 20px;
         }
-
 
         .hero-title {
             font-family: 'Caveat', cursive;
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             line-height: 1.1;
             color: #fff;
             margin-bottom: 15px;
@@ -164,6 +147,8 @@
         
         .hero-subtitle span { color: var(--accent-color); font-weight: 600; }
 
+
+        /* --- ШАГ 2: ПРОЕКТЫ --- */
         .step-2-section {
             background-color: #16162a;
             align-items: center;
@@ -198,6 +183,7 @@
             line-height: 1.7;
         }
 
+        /* --- БЛОК ИГР --- */
         .games-section {
             background: linear-gradient(to bottom, #16162a, #0f0f1a);
             padding: 80px 40px;
@@ -273,6 +259,7 @@
         
         .play-btn:hover { background: #fff; }
 
+        /* --- ШАГИ 3, 4, 5 --- */
         .step-section {
             border-top: 1px solid rgba(255,255,255,0.1);
             position: relative;
@@ -292,6 +279,7 @@
         .step-bg-2 { background-color: #16162a; }
         .step-bg-3 { background-color: #0f0f1a; }
 
+        /* --- ПОДВАЛ --- */
         .footer {
             padding: 60px 40px;
             background: #050508;
@@ -326,25 +314,35 @@
             box-shadow: 0 10px 30px rgba(108, 92, 231, 0.6);
         }
 
-        /* Адаптивность для телефонов */
-        @media (max-width: 900px) {
-            .games-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-
+        /* --- АДАПТИВНОСТЬ ДЛЯ ТЕЛЕФОНА --- */
         @media (max-width: 768px) {
-            .hero-section { display: flex; flex-direction: column; padding: 20px; gap: 15px; }
-            .img-1 { order: 1; height: auto; }
-            .img-2 { order: 2; height: auto; }
-            .img-3 { order: 4; height: auto; }
-            .hero-text { order: 3; text-align: center; padding: 20px 0; flex-direction: column; }
-            .hero-avatar { width: 100px; height: 100px; }
-            .hero-title { font-size: 2rem; }
-            
-            /* На телефоне картинки тоже не должны вылезать за экран */
-            .img-1 .mood-img, .img-2 .mood-img, .img-3 .mood-img {
-                max-height: 250px;
-                width: 100%;
+            /* На телефоне 2 колонки превращаются в 1 */
+            .hero-section { 
+                grid-template-columns: 1fr; 
+                padding: 80px 20px 20px 20px; 
             }
+            .gallery-left, .gallery-right {
+                flex-direction: row; /* Выстраиваем картинки в ряд на телефоне */
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .mood-img {
+                width: 48%; /* По две картинки в ряд на телефоне */
+                height: 200px;
+            }
+            
+            /* Текст по центру без сильного наезда */
+            .hero-overlay {
+                position: relative;
+                top: auto;
+                left: auto;
+                transform: none;
+                width: 100%;
+                margin-top: 20px;
+                order: -1; /* Ставим текст первым на телефоне */
+            }
+            .hero-title { font-size: 2rem; }
+            .hero-avatar { width: 100px; height: 100px; }
 
             .games-grid { grid-template-columns: 1fr; }
             .story-card { padding: 30px 20px; }
@@ -354,34 +352,29 @@
 </head>
 <body>
 
-    <!-- ШАГ 1: ГЛАВНАЯ -->
+    <!-- ШАГ 1: ГЛАВНАЯ (БИНАРНЫЙ КОД) -->
     <section class="hero-section">
         <div class="logo">[ТВОЙ НИК]</div>
         
-        <!-- ПЕРВОЕ ФОТО (Сверху слева) -->
-        <div class="img-1">
-            <img src="1.png" alt="Атмосфера 1" class="mood-img">
+        <!-- ЛЕВАЯ КОЛОНКА -->
+        <div class="gallery-left">
+            <img src="3.png" alt="Первая картинка" class="mood-img">
+            <img src="avatar.png" alt="Аватар" class="mood-img">
         </div>
 
-        <!-- ВТОРОЕ ФОТО (Сверху справа) -->
-        <div class="img-2">
-            <img src="2.png" alt="Атмосфера 2" class="mood-img">
+        <!-- ПРАВАЯ КОЛОНКА -->
+        <div class="gallery-right">
+            <img src="2.png" alt="Вторая картинка" class="mood-img">
+            <img src="1.png" alt="Третья картинка" class="mood-img">
         </div>
 
-        <!-- ТЕКСТ + АВАТАРКА -->
-        <div class="hero-text">
+        <!-- ТЕКСТОВЫЙ БЛОК ПО ЦЕНТРУ -->
+        <div class="hero-overlay">
             <img src="avatar.png" alt="Мой Аватар" class="hero-avatar">
-            <div class="hero-text-content">
-                <h1 class="hero-title">Создатель интересных и не сбалансированных, но весёлых игр, в которые интересно играть с друзьями или одним ✨</h1>
-                <p class="hero-subtitle">
-                    Чувствуй себя как дома: можешь <span>протестировать мои игры</span> ниже или просто узнать, кто стоит за этим экраном. 
-                </p>
-            </div>
-        </div>
-
-        <!-- ТРЕТЬЕ ФОТО (Снизу справа) -->
-        <div class="img-3">
-            <img src="3.png" alt="Атмосфера 3" class="mood-img">
+            <h1 class="hero-title">Создатель интересных и не сбалансированных, но весёлых игр, в которые интересно играть с друзьями или одним ✨</h1>
+            <p class="hero-subtitle">
+                Чувствуй себя как дома: можешь <span>протестировать мои игры</span> ниже или просто узнать, кто стоит за этим экраном. 
+            </p>
         </div>
     </section>
 
