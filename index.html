@@ -71,9 +71,10 @@
             align-items: center;
         }
         
+        /* ЛОГОТИП: Увеличенный отступ сверху в 4 раза (был 20px, стало 80px) */
         .logo {
             position: absolute;
-            top: 20px;
+            top: 80px;
             left: 40px;
             font-weight: 700;
             font-size: 1rem;
@@ -110,8 +111,10 @@
 
         .img-3 { grid-area: right-bottom; }
 
+        /* --- ОБЩИЕ СТИЛИ КАРТИНОК --- */
         .mood-img {
-            width: 100%; height: 100%;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
             border-radius: 20px;
             transition: all 0.4s ease;
@@ -124,6 +127,25 @@
             filter: grayscale(0%);
             box-shadow: 0 15px 40px rgba(108, 92, 231, 0.5);
         }
+
+        /* --- МАСШТАБИРОВАНИЕ ДЛЯ КАРТИНОК 1 И 2 --- */
+        /* Ограничиваем высоту, чтобы они стали размером с 3-ю картинку и не исказились */
+        .img-1 .mood-img, .img-2 .mood-img {
+            width: auto;     /* Ширина подстраивается автоматически */
+            max-width: 100%; /* Но не вылезает за пределы своей клетки */
+            max-height: 320px; /* Фиксируем примерную высоту (сохраняет пропорции) */
+            height: 100%;
+            object-fit: contain; /* ВАЖНО: не обрезает фото, а вписывает целиком */
+        }
+
+        /* Для 3-й картинки оставляем стандартное заполнение, так как она изначально меньше */
+        .img-3 .mood-img {
+            width: auto;
+            max-height: 320px;
+            height: 100%;
+            object-fit: contain;
+        }
+
 
         .hero-title {
             font-family: 'Caveat', cursive;
@@ -304,18 +326,26 @@
             box-shadow: 0 10px 30px rgba(108, 92, 231, 0.6);
         }
 
+        /* Адаптивность для телефонов */
         @media (max-width: 900px) {
             .games-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
         @media (max-width: 768px) {
             .hero-section { display: flex; flex-direction: column; padding: 20px; gap: 15px; }
-            .img-1 { order: 1; height: 200px; }
-            .img-2 { order: 2; height: 200px; }
-            .img-3 { order: 4; height: 200px; }
+            .img-1 { order: 1; height: auto; }
+            .img-2 { order: 2; height: auto; }
+            .img-3 { order: 4; height: auto; }
             .hero-text { order: 3; text-align: center; padding: 20px 0; flex-direction: column; }
             .hero-avatar { width: 100px; height: 100px; }
             .hero-title { font-size: 2rem; }
+            
+            /* На телефоне картинки тоже не должны вылезать за экран */
+            .img-1 .mood-img, .img-2 .mood-img, .img-3 .mood-img {
+                max-height: 250px;
+                width: 100%;
+            }
+
             .games-grid { grid-template-columns: 1fr; }
             .story-card { padding: 30px 20px; }
             section { padding: 40px 20px; }
@@ -340,7 +370,6 @@
 
         <!-- ТЕКСТ + АВАТАРКА -->
         <div class="hero-text">
-            <!-- Если аватарка это одна из троих картинок, поменяй avatar.png на 1.png или 2.png -->
             <img src="avatar.png" alt="Мой Аватар" class="hero-avatar">
             <div class="hero-text-content">
                 <h1 class="hero-title">Создатель интересных и не сбалансированных, но весёлых игр, в которые интересно играть с друзьями или одним ✨</h1>
