@@ -33,11 +33,7 @@
             justify-content: center;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
-        }
+        .container { max-width: 1200px; margin: 0 auto; width: 100%; }
 
         .section-title {
             font-family: 'Press Start 2P', cursive;
@@ -49,15 +45,10 @@
             text-shadow: 0 0 10px var(--primary-color);
         }
 
-        .text-block {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            opacity: 0.9;
-            max-width: 800px;
-        }
+        .text-block { font-size: 1.1rem; line-height: 1.8; opacity: 0.9; max-width: 800px; }
         .text-block p { margin-bottom: 20px; }
 
-        /* --- ШАГ 1: СТРОГАЯ СЕТКА 2х2 --- */
+        /* --- ШАГ 1: СЕТКА --- */
         .hero-section {
             padding: 100px 40px 40px 40px;
             background: linear-gradient(135deg, #1a1a2e 0%, #2d1b4e 100%);
@@ -76,29 +67,27 @@
             z-index: 10;
         }
 
-        /* Сама сетка */
         .hero-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* Две колонки равной ширины */
-            grid-template-rows: 1fr 1fr;   /* Две строки равной высоты */
-            gap: 15px; /* Расстояние между ячейками */
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 15px;
             width: 100%;
             max-width: 1100px;
-            height: 85vh; /* Сетка занимает почти весь экран */
+            height: 85vh;
         }
 
-        /* Общие стили для ячеек с картинками */
         .grid-img {
             overflow: hidden;
             border-radius: 20px;
             position: relative;
-            background: rgba(0,0,0,0.2); /* Фон-подложка на случай загрузки */
+            background: rgba(0,0,0,0.2);
         }
 
         .grid-img img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Заполняет ячейку как пазл */
+            object-fit: cover;
             transition: all 0.5s ease;
             filter: grayscale(30%) brightness(0.85);
         }
@@ -108,7 +97,6 @@
             filter: grayscale(0%) brightness(1);
         }
 
-        /* Ячейка с текстом */
         .grid-text {
             display: flex;
             align-items: center;
@@ -129,13 +117,10 @@
             object-fit: cover;
             border: 4px solid var(--accent-color);
             box-shadow: 0 0 25px var(--primary-color);
-            flex-shrink: 0; /* Чтобы аватарка не сжималась */
+            flex-shrink: 0;
         }
 
-        .hero-text-content {
-            display: flex;
-            flex-direction: column;
-        }
+        .hero-text-content { display: flex; flex-direction: column; }
 
         .hero-title {
             font-family: 'Caveat', cursive;
@@ -146,11 +131,7 @@
             text-shadow: 0 0 15px var(--primary-color);
         }
 
-        .hero-subtitle {
-            font-size: 0.95rem;
-            opacity: 0.9;
-            line-height: 1.6;
-        }
+        .hero-subtitle { font-size: 0.95rem; opacity: 0.9; line-height: 1.6; }
         .hero-subtitle span { color: var(--accent-color); font-weight: 600; }
 
         /* --- ШАГ 2 --- */
@@ -168,8 +149,22 @@
         .game-info { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
         .game-title { font-size: 1.2rem; margin-bottom: 10px; color: #fff; font-family: 'Press Start 2P', cursive; font-size: 0.9rem; }
         .game-desc { font-size: 0.9rem; opacity: 0.7; margin-bottom: 20px; flex-grow: 1; }
-        .play-btn { display: inline-block; padding: 10px 25px; background: var(--accent-color); color: var(--bg-dark); text-decoration: none; border-radius: 20px; font-weight: 700; font-size: 0.9rem; text-align: center; transition: background 0.2s; }
-        .play-btn:hover { background: #fff; }
+        
+        /* Кнопка играть */
+        .play-btn {
+            display: inline-block;
+            padding: 10px 25px;
+            background: var(--accent-color);
+            color: var(--bg-dark);
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-align: center;
+            transition: background 0.2s, transform 0.2s;
+            cursor: pointer;
+        }
+        .play-btn:hover { background: #fff; transform: scale(1.05); }
 
         /* --- ШАГИ 3, 4, 5 --- */
         .step-section { border-top: 1px solid rgba(255,255,255,0.1); position: relative; }
@@ -184,28 +179,85 @@
         .action-btn { display: inline-block; padding: 18px 50px; background: linear-gradient(90deg, var(--primary-color), var(--accent-color)); color: white; text-decoration: none; border-radius: 30px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 5px 20px rgba(108, 92, 231, 0.4); font-size: 1.1rem; }
         .action-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(108, 92, 231, 0.6); }
 
-        /* --- АДАПТИВНОСТЬ ДЛЯ ТЕЛЕФОНА --- */
+
+        /* =========================================
+           НОВОЕ: СТИЛИ ДЛЯ ПОЛНОЭКРАННОЙ ИГРЫ
+           ========================================= */
+        .game-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95); /* Темный фон вокруг */
+            z-index: 9999; /* Поверх абсолютно всего на сайте */
+            display: none; /* Скрыто по умолчанию */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Класс, который появляется при нажатии на кнопку */
+        .game-overlay.active {
+            display: flex;
+        }
+
+        /* Само окно игры */
+        .game-iframe {
+            width: 95%;
+            height: 90%;
+            border: 4px solid var(--accent-color);
+            border-radius: 15px;
+            box-shadow: 0 0 50px var(--primary-color);
+            background: #000;
+        }
+
+        /* Крестик закрытия */
+        .close-game-btn {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 2rem;
+            color: #fff;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.1);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--primary-color);
+            transition: all 0.3s ease;
+            z-index: 10000;
+        }
+
+        .close-game-btn:hover {
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+            transform: rotate(90deg) scale(1.1);
+        }
+
+
+        /* --- АДАПТИВНОСТЬ --- */
         @media (max-width: 768px) {
             .hero-section { padding: 80px 20px 20px 20px; }
-            
-            /* На телефоне ломаем сетку в 1 колонку */
-            .hero-grid {
-                grid-template-columns: 1fr;
-                grid-template-rows: auto;
-                height: auto;
-            }
-
-            /* Текст ставим самым первым */
+            .hero-grid { grid-template-columns: 1fr; grid-template-rows: auto; height: auto; }
             .grid-text { order: -1; flex-direction: column; text-align: center; }
             .hero-avatar { width: 90px; height: 90px; }
             .hero-title { font-size: 1.8rem; }
-
-            /* Картинки на телефоне делаютcя чуть меньше по высоте */
             .grid-img { height: 250px; }
-
             .games-grid { grid-template-columns: 1fr; }
             .story-card { padding: 30px 20px; }
             section { padding: 40px 20px; }
+            
+            /* На телефоне игра занимает вообще весь экран */
+            .game-iframe {
+                width: 100%;
+                height: 100%;
+                border: none;
+                border-radius: 0;
+            }
         }
     </style>
 </head>
@@ -213,34 +265,18 @@
 
     <!-- ШАГ 1: ГЛАВНАЯ СЕТКА -->
     <section class="hero-section">
-        <div class="logo">ChaosCrafter</div>
-        
+        <div class="logo">[ТВОЙ НИК]</div>
         <div class="hero-grid">
-            <!-- 1. Слева в углу высокая (2.png) -->
-            <div class="grid-img">
-                <img src="2.png" alt="Первая высокая картинка">
-            </div>
-
-            <!-- 2. Справа от неё высокая (1.png) -->
-            <div class="grid-img">
-                <img src="1.png" alt="Вторая высокая картинка">
-            </div>
-
-            <!-- 3. По первой находится текст с аватаркой (Слева внизу) -->
+            <div class="grid-img"><img src="2.png" alt="Первая высокая картинка"></div>
+            <div class="grid-img"><img src="1.png" alt="Вторая высокая картинка"></div>
             <div class="grid-text">
                 <img src="avatar.png" alt="Аватар" class="hero-avatar">
                 <div class="hero-text-content">
                     <h1 class="hero-title">Создатель интересных и не сбалансированных, но весёлых игр, в которые интересно играть с друзьями или одним ✨</h1>
-                    <p class="hero-subtitle">
-                        Чувствуй себя как дома: можешь <span>протестировать мои игры</span> ниже или просто узнать, кто стоит за этим экраном. 
-                    </p>
+                    <p class="hero-subtitle">Чувствуй себя как дома: можешь <span>протестировать мои игры</span> ниже или просто узнать, кто стоит за этим экраном.</p>
                 </div>
             </div>
-
-            <!-- 4. Справа внизу широкая (3.png) -->
-            <div class="grid-img">
-                <img src="3.png" alt="Широкая картинка снизу">
-            </div>
+            <div class="grid-img"><img src="3.png" alt="Широкая картинка снизу"></div>
         </div>
     </section>
 
@@ -258,30 +294,38 @@
     <section class="games-section" id="games">
         <h2 class="section-title">// ИГРЫ //</h2>
         <div class="games-grid">
+            
+            <!-- Игра 1 -->
             <div class="game-card">
                 <img src="https://picsum.photos/400/300?random=101" alt="Игра 1" class="game-img">
                 <div class="game-info">
                     <h3 class="game-title">Игра №1</h3>
                     <p class="game-desc">Описание первой игры.</p>
-                    <a href="#" class="play-btn">▶ ИГРАТЬ</a>
+                    <!-- ОНКЛИК ВМЕСТО ССЫЛКИ! Указываем путь к папке с игрой -->
+                    <a href="#" class="play-btn" onclick="openGame('game-1/index.html'); return false;">▶ ИГРАТЬ</a>
                 </div>
             </div>
+
+            <!-- Игра 2 (Пока заглушка) -->
             <div class="game-card">
                 <img src="https://picsum.photos/400/300?random=102" alt="Игра 2" class="game-img">
                 <div class="game-info">
                     <h3 class="game-title">Игра №2</h3>
                     <p class="game-desc">Описание второй игры.</p>
-                    <a href="#" class="play-btn">▶ ИГРАТЬ</a>
+                    <a href="#" class="play-btn" onclick="openGame('game-2/index.html'); return false;">▶ ИГРАТЬ</a>
                 </div>
             </div>
+
+            <!-- Игра 3 (Пока заглушка) -->
             <div class="game-card">
                 <img src="https://picsum.photos/400/300?random=103" alt="Игра 3" class="game-img">
                 <div class="game-info">
                     <h3 class="game-title">Игра №3</h3>
                     <p class="game-desc">Описание третьей игры.</p>
-                    <a href="#" class="play-btn">▶ ИГРАТЬ</a>
+                    <a href="#" class="play-btn" onclick="openGame('game-3/index.html'); return false;">▶ ИГРАТЬ</a>
                 </div>
             </div>
+
         </div>
     </section>
 
@@ -317,6 +361,50 @@
         <a href="https://t.me/твойник" class="action-btn">Связаться со мной</a>
         <p style="margin-top: 30px; opacity: 0.5; font-size: 0.8rem;">© 2023 [Твое Имя]. Made with Code & Magic.</p>
     </footer>
+
+
+    <!-- =========================================
+         НОВОЕ: САМО ОКНО ИГРЫ И СКРИПТ
+         ========================================= -->
+    
+    <!-- Невидимое окно, которое станет видимым -->
+    <div class="game-overlay" id="gameOverlay">
+        <!-- Крестик -->
+        <div class="close-game-btn" onclick="closeGame()">✖</div>
+        <!-- Тут будет появляться игра -->
+        <iframe src="" class="game-iframe" id="gameFrame" allowfullscreen></iframe>
+    </div>
+
+    <!-- Скрипт управления окном -->
+    <script>
+        function openGame(gamePath) {
+            const overlay = document.getElementById('gameOverlay');
+            const frame = document.getElementById('gameFrame');
+            
+            // Загружаем игру в окно
+            frame.src = gamePath; 
+            
+            // Делаем окно видимым
+            overlay.classList.add('active');
+            
+            // Блокируем прокрутку основного сайта, пока игра открыта
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeGame() {
+            const overlay = document.getElementById('gameOverlay');
+            const frame = document.getElementById('gameFrame');
+            
+            // Прячем окно
+            overlay.classList.remove('active');
+            
+            // ВАЖНО: Очищаем ссылку! Это полностью останавливает игру (звуки, музыка, анимация)
+            frame.src = ""; 
+            
+            // Возвращаем прокрутку сайта
+            document.body.style.overflow = 'auto'; 
+        }
+    </script>
 
 </body>
 </html>
