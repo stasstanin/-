@@ -1328,3 +1328,4 @@
         resizeCanvas();
         loadGame();
         gameLoop();
+    })();
